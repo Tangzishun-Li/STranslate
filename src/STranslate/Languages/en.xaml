@@ -360,6 +360,10 @@
     <sys:String x:Key="PluginDeleteFailed">Failed to delete the plugin</sys:String>
     <sys:String x:Key="PluginDeleteForRestart">The plugin has been marked for deletion. Restart to take effect.</sys:String>
     <sys:String x:Key="Ok">Ok</sys:String>
+    <sys:String x:Key="PluginUpgrade">Plugin Upgrade</sys:String>
+    <sys:String x:Key="PluginUpgradeConfirm">Plugin {0} is already installed with version {1}. Upgrade?</sys:String>
+    <sys:String x:Key="PluginUpgradeSuccess">Plugin upgrade is ready, will take effect after restart</sys:String>
+    <sys:String x:Key="PluginUpgradeFailed">Plugin upgrade failed</sys:String>
 
     <!--  // Detect //  -->
     <sys:String x:Key="BaiduDetectError">Baidu detect error</sys:String>

@@ -20,15 +20,20 @@ public partial class PluginInstance : ObservableObject
         }
     }
 
-    internal string? InstallPlugin(string spkgPluginFilePath)
+    internal (string? errMsg, PluginMetaData? newPlugin, PluginMetaData? oldPlugin) InstallPlugin(string spkgPluginFilePath)
     {
-        var (errMsg, pluginMetaData) = _pluginManager.InstallPlugin(spkgPluginFilePath);
+        var (errMsg, pluginMetaData, oldPlugin) = _pluginManager.InstallPlugin(spkgPluginFilePath);
         if (pluginMetaData != null)
         {
             PluginMetaDatas.Add(pluginMetaData);
-            return null;
+            return (null, pluginMetaData, null);
         }
-        return errMsg;
+        return (errMsg, null, oldPlugin);
+    }
+
+    internal bool UpgradePlugin(PluginMetaData oldPlugin, string spkgFilePath)
+    {
+        return _pluginManager.UpgradePlugin(oldPlugin, spkgFilePath);
     }
 
     internal bool UninstallPlugin(PluginMetaData pluginMetaData)

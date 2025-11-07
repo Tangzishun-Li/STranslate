@@ -361,6 +361,10 @@
     <sys:String x:Key="PluginDeleteFailed">外掛刪除失敗</sys:String>
     <sys:String x:Key="PluginDeleteForRestart">外掛已標記刪除，重啟後生效</sys:String>
     <sys:String x:Key="Ok">好</sys:String>
+    <sys:String x:Key="PluginUpgrade">外掛程式升級</sys:String>
+    <sys:String x:Key="PluginUpgradeConfirm">外掛程式 {0} 已安裝版本 {1}。是否要升級？</sys:String>
+    <sys:String x:Key="PluginUpgradeSuccess">外掛程式升級準備就緒，重新啟動後生效</sys:String>
+    <sys:String x:Key="PluginUpgradeFailed">插件升級失敗</sys:String>
 
     <!--  // Detect //  -->
     <sys:String x:Key="BaiduDetectError">百度識別錯誤</sys:String>

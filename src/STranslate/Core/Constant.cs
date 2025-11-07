@@ -18,6 +18,8 @@ public class Constant
     public const string TaskName = "STranslateSkipUAC";
     public const string EmptyHotkey = "None";
     public const string PluginFileExtension = ".spkg";
+    public const string NeedDelete = "NeedDelete.txt";
+    public const string NeedUpgrade = "_NeedUpgrade";
 
     /// <summary>
     ///     用户软件根目录

@@ -55,22 +55,22 @@ public class PluginManager
         }
     }
 
-    public (string, PluginMetaData?) InstallPlugin(string spkgFilePath)
+    public (string, PluginMetaData?, PluginMetaData?) InstallPlugin(string spkgFilePath)
     {
         if (string.IsNullOrWhiteSpace(spkgFilePath))
         {
-            return ("Plugin path cannot be null or empty.", null);
+            return ("Plugin path cannot be null or empty.", null, null);
         }
 
         if (!File.Exists(spkgFilePath))
         {
-            return ("Plugin file does not exist: " + spkgFilePath, null);
+            return ("Plugin file does not exist: " + spkgFilePath, null, null);
         }
 
         var extension = Path.GetExtension(spkgFilePath).ToLower();
         if (extension != Constant.PluginFileExtension)
         {
-            return ("Unsupported plugin file type: " + extension + ". Expected .spkg", null);
+            return ("Unsupported plugin file type: " + extension + ". Expected .spkg", null, null);
         }
 
         try
@@ -89,7 +89,7 @@ public class PluginManager
                 }
                 catch (Exception ex)
                 {
-                    return ("Failed to clean extraction directory: " + ex.Message, null);
+                    return ("Failed to clean extraction directory: " + ex.Message, null, null);
                 }
             }
 
@@ -100,26 +100,35 @@ public class PluginManager
             }
             catch (Exception ex)
             {
-                return ("Failed to extract SPKG file: " + ex.Message, null);
+                return ("Failed to extract SPKG file: " + ex.Message, null, null);
             }
 
             var metaData = GetPluginMeta(extractPath);
 
             if (metaData == null || string.IsNullOrEmpty(metaData.PluginID))
             {
-                return ("Invalid plugin structure: " + JsonSerializer.Serialize(metaData), null);
+                return ("Invalid plugin structure: " + JsonSerializer.Serialize(metaData), null, null);
             }
-            var existPlugin = AllPluginMetaDatas.FirstOrDefault(x => x.PluginID == metaData.PluginID);
-            if (existPlugin != null)
+            var existPluginMetaData = AllPluginMetaDatas.FirstOrDefault(x => x.PluginID == metaData.PluginID);
+            if (existPluginMetaData != null)
             {
-                return ($"插件已存在: {metaData.Name} v{existPlugin.Version}，请先卸载旧版本再安装新版本。", null);
+                if (!Version.TryParse(metaData.Version, out var newPluginVersion))
+                {
+                    return ($"无法解析插件版本: {metaData.Version}", null, null);
+                }
+                if (Version.TryParse(existPluginMetaData.Version, out var existingVersion) &&
+                    newPluginVersion <= existingVersion)
+                {
+                    return ($"插件版本过旧: {metaData.Name} v{metaData.Version}，当前已安装版本为 v{existPluginMetaData.Version}。", null, null);
+                }
+                return ($"可以选择升级到新版本(v{metaData.Version})。", null, existPluginMetaData);
             }
 
             var pluginPath = MoveToPluginPath(extractPath, metaData.PluginID);
             var result = LoadPluginMetaDataFromDirectory(pluginPath);
             if (!result.IsSuccess || result.PluginMetaData == null)
             {
-                return ("Failed to load plugin from " + pluginPath + ": " + result.ErrorMessage, null);
+                return ("Failed to load plugin from " + pluginPath + ": " + result.ErrorMessage, null, null);
             }
 
             _pluginMetaDatas.Add(result.PluginMetaData);
@@ -127,29 +136,52 @@ public class PluginManager
             // 加载插件语言资源
             Ioc.Default.GetRequiredService<Internationalization>()
                 .LoadInstalledPluginLanguages(pluginPath);
-            return ("", result.PluginMetaData);
+            return ("", result.PluginMetaData, null);
         }
         catch (Exception ex)
         {
-            return ("Unexpected error loading plugin from SPKG " + spkgFilePath + ": " + ex.Message, null);
+            return ("Unexpected error loading plugin from SPKG " + spkgFilePath + ": " + ex.Message, null, null);
+        }
+    }
+
+    public bool UpgradePlugin(PluginMetaData oldPlugin, string spkgFilePath)
+    {
+        try
+        {
+            var pluginName = Path.GetFileNameWithoutExtension(spkgFilePath);
+            var extractPath = Path.Combine(_tempExtractPath, pluginName);
+
+            // 标记旧插件目录以便在重启时删除
+            File.Create(Path.Combine(oldPlugin.PluginDirectory, Constant.NeedDelete)).Dispose();
+
+            // 将新插件移动到目标位置
+            var targetPath = oldPlugin.PluginDirectory + Constant.NeedUpgrade;
+            Helper.MoveDirectory(extractPath, targetPath);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Failed to upgrade plugin {oldPlugin.Name}.");
+            return false;
         }
     }
 
     public bool UninstallPlugin(PluginMetaData metaData)
     {
         // 标记插件目录删除
-        File.Create(Path.Combine(metaData.PluginDirectory, "NeedDelete.txt")).Dispose();
+        File.Create(Path.Combine(metaData.PluginDirectory, Constant.NeedDelete)).Dispose();
 
         // 插件设置目录删除
         var combineName = Helper.GetPluginDicrtoryName(metaData);
         var pluginSettingDirectory = Path.Combine(DataLocation.PluginSettingsDirectory, combineName);
         if (Directory.Exists(pluginSettingDirectory))
-            File.Create(Path.Combine(pluginSettingDirectory, "NeedDelete.txt")).Dispose();
+            File.Create(Path.Combine(pluginSettingDirectory, Constant.NeedDelete)).Dispose();
 
         // 插件缓存目录删除
         var pluginCacheDirectory = Path.Combine(DataLocation.PluginCacheDirectory, combineName);
         if (Directory.Exists(pluginCacheDirectory))
-            File.Create(Path.Combine(pluginCacheDirectory, "NeedDelete.txt")).Dispose();
+            File.Create(Path.Combine(pluginCacheDirectory, Constant.NeedDelete)).Dispose();
 
         _pluginMetaDatas.Remove(metaData);
 
@@ -273,13 +305,21 @@ public class PluginManager
 
         foreach (var directory in directories)
         {
-            if (Helper.ShouldDeleteDirectory(directory))
+            var tmp = directory;
+            if (Helper.ShouldDeleteDirectory(tmp))
             {
-                Helper.TryDeleteDirectory(directory);
+                Helper.TryDeleteDirectory(tmp);
                 continue;
             }
 
-            var metadata = GetPluginMeta(directory);
+            if (tmp.EndsWith(Constant.NeedUpgrade))
+            {
+                var getOriginDirectory = tmp[..^Constant.NeedUpgrade.Length];
+                Directory.Move(tmp, getOriginDirectory);
+                tmp = getOriginDirectory;
+            }
+
+            var metadata = GetPluginMeta(tmp);
             if (metadata != null)
             {
                 allPluginMetaDatas.Add(metadata);

@@ -79,7 +79,7 @@ public partial class PluginViewModel : ObservableObject
     partial void OnFilterTextChanged(string value) => _pluginCollectionView.View?.Refresh();
 
     [RelayCommand]
-    private void AddPlugin()
+    private async Task AddPluginAsync()
     {
         // Open a file dialog to select a plugin zip file
         var dialog = new Microsoft.Win32.OpenFileDialog
@@ -94,8 +94,48 @@ public partial class PluginViewModel : ObservableObject
             return; // User canceled the dialog
         }
         var spkgPluginFilePath = dialog.FileName;
-        var errMsg = _pluginInstance.InstallPlugin(spkgPluginFilePath);
-        if (!string.IsNullOrEmpty(errMsg))
+        var (errMsg, newPlugin, oldPlugin) = _pluginInstance.InstallPlugin(spkgPluginFilePath);
+
+        if (oldPlugin != null)
+        {
+            // 插件已存在，询问是否升级
+            var result = await new ContentDialog
+            {
+                Title = _i18n.GetTranslation("PluginUpgrade"),
+                Content = errMsg + "\n" + string.Format(_i18n.GetTranslation("PluginUpgradeConfirm"), oldPlugin.Name, oldPlugin.Version),
+                PrimaryButtonText = _i18n.GetTranslation("Confirm"),
+                CloseButtonText = _i18n.GetTranslation("Cancel"),
+                DefaultButton = ContentDialogButton.Primary,
+            }.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                // 执行升级
+                if (_pluginInstance.UpgradePlugin(oldPlugin, spkgPluginFilePath))
+                {
+                    // 询问是否重启
+                    var restartResult = await new ContentDialog
+                    {
+                        Title = _i18n.GetTranslation("Prompt"),
+                        Content = _i18n.GetTranslation("PluginUpgradeSuccess"),
+                        PrimaryButtonText = _i18n.GetTranslation("Confirm"),
+                        CloseButtonText = _i18n.GetTranslation("Cancel"),
+                        DefaultButton = ContentDialogButton.Primary,
+                    }.ShowAsync();
+
+                    if (restartResult == ContentDialogResult.Primary)
+                    {
+                        //TODO: Restart the application
+                        App.Current.Shutdown();
+                    }
+                }
+                else
+                {
+                    _snackbar.ShowError(_i18n.GetTranslation("PluginUpgradeFailed"));
+                }
+            }
+        }
+        else if (!string.IsNullOrEmpty(errMsg))
         {
             _ = new ContentDialog
             {

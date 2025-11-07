@@ -361,6 +361,10 @@
     <sys:String x:Key="PluginDeleteFailed">插件删除失败</sys:String>
     <sys:String x:Key="PluginDeleteForRestart">插件已标记删除，重启后生效</sys:String>
     <sys:String x:Key="Ok">好</sys:String>
+    <sys:String x:Key="PluginUpgrade">插件升级</sys:String>
+    <sys:String x:Key="PluginUpgradeConfirm">插件 {0} 已安装版本 {1}。是否要升级？</sys:String>
+    <sys:String x:Key="PluginUpgradeSuccess">插件升级准备就绪，重启后生效</sys:String>
+    <sys:String x:Key="PluginUpgradeFailed">插件升级失败</sys:String>
 
     <!--  // Detect //  -->
     <sys:String x:Key="BaiduDetectError">百度识别错误</sys:String>

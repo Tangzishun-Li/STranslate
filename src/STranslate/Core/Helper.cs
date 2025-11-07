@@ -10,7 +10,7 @@ public static class Helper
     private static readonly ILogger _logger = Ioc.Default.GetRequiredService<ILogger>();
 
     public static bool ShouldDeleteDirectory(string directory)
-        => File.Exists(Path.Combine(directory, "NeedDelete.txt"));
+        => File.Exists(Path.Combine(directory, Constant.NeedDelete));
 
     public static bool TryDeleteDirectory(string directory)
     {
