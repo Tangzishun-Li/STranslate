@@ -16,12 +16,13 @@ public static class Helper
     {
         try
         {
-            Directory.Delete(directory, true);
+            if (Directory.Exists(directory))
+                Directory.Delete(directory, true);
             return true;
         }
         catch (Exception e)
         {
-            _logger.LogError($"无法删除目录 <{directory}>: {e.Message}");
+            _logger.LogError(e, $"无法删除目录 <{directory}>");
             return false;
         }
     }
@@ -71,4 +72,14 @@ public static class Helper
 
     public static string GetPluginDicrtoryName(PluginMetaData metaData)
         => metaData.IsPrePlugin ? metaData.AssemblyName : $"{metaData.AssemblyName}_{metaData.PluginID}";
+
+    public static Version GetVersionOrDefault(PluginMetaData metaData)
+    {
+        if (Version.TryParse(metaData.Version, out var parsed))
+        {
+            return parsed;
+        }
+
+        return new Version(0, 0, 0);
+    }
 }

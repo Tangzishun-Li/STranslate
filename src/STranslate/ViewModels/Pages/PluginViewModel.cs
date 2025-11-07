@@ -98,12 +98,11 @@ public partial class PluginViewModel : ObservableObject
 
         if (installResult.RequiredUpgrade && installResult.ExistingPlugin != null)
         {
-            var oldPlugin = installResult.ExistingPlugin;
             // 插件已存在，询问是否升级
             var result = await new ContentDialog
             {
                 Title = _i18n.GetTranslation("PluginUpgrade"),
-                Content = (installResult.Message ?? string.Empty) + "\n" + string.Format(_i18n.GetTranslation("PluginUpgradeConfirm"), oldPlugin.Name, oldPlugin.Version),
+                Content = string.Format(_i18n.GetTranslation("PluginUpgradeConfirm"), installResult.ExistingPlugin.Name, installResult.ExistingPlugin.Version, installResult.NewPlugin.Version),
                 PrimaryButtonText = _i18n.GetTranslation("Confirm"),
                 CloseButtonText = _i18n.GetTranslation("Cancel"),
                 DefaultButton = ContentDialogButton.Primary,
@@ -112,9 +111,8 @@ public partial class PluginViewModel : ObservableObject
             if (result == ContentDialogResult.Primary)
             {
                 // 执行升级
-                if (_pluginInstance.UpgradePlugin(oldPlugin, spkgPluginFilePath))
+                if (_pluginInstance.UpgradePlugin(installResult.ExistingPlugin, spkgPluginFilePath))
                 {
-                    // 询问是否重启
                     var restartResult = await new ContentDialog
                     {
                         Title = _i18n.GetTranslation("Prompt"),
@@ -143,7 +141,7 @@ public partial class PluginViewModel : ObservableObject
                 Title = _i18n.GetTranslation("PluginInstallFailed"),
                 CloseButtonText = _i18n.GetTranslation("Ok"),
                 DefaultButton = ContentDialogButton.Close,
-                Content = installResult.Message ?? _i18n.GetTranslation("PluginInstallFailed")
+                Content = installResult.Message
             }.ShowAsync().ConfigureAwait(false);
         }
         else
