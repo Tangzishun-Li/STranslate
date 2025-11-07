@@ -430,7 +430,7 @@
     <sys:String x:Key="TranslatingText">正在翻譯文字...</sys:String>
 
     <!--  // For Plugins //  -->
-    <sys:String x:Key="PluginTranslateAutoTransBackHeader">回譯</sys:String>
+    <sys:String x:Key="PluginTranslateAutoTransBack">回譯</sys:String>
     <sys:String x:Key="PluginTranslateAutoTransBackDescription">翻譯之後自動進行回譯</sys:String>
     <sys:String x:Key="PluginTranslateValidate">校驗</sys:String>
     <sys:String x:Key="PluginTranslateValidateDescription">測試 API 連接與配置是否正確</sys:String>

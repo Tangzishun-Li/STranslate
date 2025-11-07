@@ -14,7 +14,7 @@
 
     <ikw:SimpleStackPanel Spacing="12">
         <!--  自动执行回译  -->
-        <ui:SettingsCard Description="{DynamicResource PluginTranslateAutoTransBackDescription}" Header="{DynamicResource PluginTranslateAutoTransBackHeader}">
+        <ui:SettingsCard Description="{DynamicResource PluginTranslateAutoTransBackDescription}" Header="{DynamicResource PluginTranslateAutoTransBack}">
             <ui:SettingsCard.HeaderIcon>
                 <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.TranslateAuto_24_Regular}" />
             </ui:SettingsCard.HeaderIcon>

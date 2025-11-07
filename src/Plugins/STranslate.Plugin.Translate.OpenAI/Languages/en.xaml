@@ -14,13 +14,6 @@
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Prompt_Placeholder">Select a prompt template</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_EditPrompt_ToolTip">Edit Prompt</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_EditPrompt_Content">Edit</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_AutoTransBack_Header">Back Translation</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_AutoTransBack_Description">Automatically perform back translation after translation</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_On">On</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Off">Off</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Validate">Validate</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_ValidateBtnContent">Validate</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Validate_Description">Test if the API connection and configuration are correct</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Temperature">Temperature Control</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Temperature_Description">Controls the randomness of the model's output</sys:String>
 

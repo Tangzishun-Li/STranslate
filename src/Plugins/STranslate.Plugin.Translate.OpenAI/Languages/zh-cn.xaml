@@ -14,13 +14,6 @@
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Prompt_Placeholder">选择提示词模板</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_EditPrompt_ToolTip">编辑提示词</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_EditPrompt_Content">编辑</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_AutoTransBack_Header">回译</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_AutoTransBack_Description">翻译之后自动进行回译</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_On">开启</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Off">关闭</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Validate">校验</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_ValidateBtnContent">校验</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Validate_Description">测试 API 连接和配置是否正确</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Temperature">温度控制</sys:String>
     <sys:String x:Key="STranslate_Plugin_Translate_OpenAI_Temperature_Description">控制着模型输出的随机性</sys:String>
 
