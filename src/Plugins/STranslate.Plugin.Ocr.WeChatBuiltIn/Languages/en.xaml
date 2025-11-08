@@ -6,7 +6,7 @@
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat">Introduction</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_Content">This plugin performs OCR recognition locally</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_Support">Support</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_Support_Description">If you like this plugin, please visit the link to support the developer:</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_Support_Description">This plugin is based on the following open source project. Please click the link to support the original project developer</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_UseCount">Usage Count</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_UseCount_Format1">Used</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_UseCount_Format2">times</sys:String>

@@ -48,7 +48,7 @@ public partial class SettingsViewModel : ObservableObject, IDisposable
                 _settings.Voice = Voice;
                 break;
             case nameof(Speed):
-                _settings.Speed = Speed;
+                _settings.Speed = Math.Round(Speed, 1);
                 break;
             case nameof(Pitch):
                 _settings.Pitch = Pitch;

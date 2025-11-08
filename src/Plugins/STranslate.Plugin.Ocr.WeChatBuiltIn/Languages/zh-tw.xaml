@@ -6,7 +6,7 @@
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat">介紹</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_Content">本插件於本地進行OCR識別</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_Support">支援</sys:String>
-    <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_Support_Description">如果您喜歡此插件，請點擊訪問連結以支援開發者：</sys:String>
+    <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_Support_Description">此插件基於下面的開源項目，請點擊連結以支援原項目開發者</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_UseCount">使用次數</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_UseCount_Format1">已使用</sys:String>
     <sys:String x:Key="STranslate_Plugin_Ocr_WeChat_UseCount_Format2">次</sys:String>

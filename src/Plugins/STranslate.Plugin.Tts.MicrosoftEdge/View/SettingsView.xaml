@@ -26,6 +26,9 @@
 
         <!--  Voice  -->
         <ui:SettingsCard Header="{DynamicResource STranslate_Plugin_Tts_MicrosoftEdge_Voice}">
+            <ui:SettingsCard.Description>
+                <ui:HyperlinkButton Content="{DynamicResource STranslate_Plugin_Tts_MicrosoftEdge_Voice_Description}" NavigateUri="https://github.com/wangwangit/tts?tab=readme-ov-file#-%E6%94%AF%E6%8C%81%E7%9A%84%E8%AF%AD%E9%9F%B3" />
+            </ui:SettingsCard.Description>
             <ui:SettingsCard.HeaderIcon>
                 <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.PersonVoice_24_Regular}" />
             </ui:SettingsCard.HeaderIcon>
@@ -87,6 +90,9 @@
 
         <!--  Style  -->
         <ui:SettingsCard Header="{DynamicResource STranslate_Plugin_Tts_MicrosoftEdge_Style}">
+            <ui:SettingsCard.Description>
+                <ui:HyperlinkButton Content="{DynamicResource STranslate_Plugin_Tts_MicrosoftEdge_Style_Description}" NavigateUri="https://github.com/wangwangit/tts?tab=readme-ov-file#%E6%94%AF%E6%8C%81%E7%9A%84%E8%AF%AD%E9%9F%B3%E9%A3%8E%E6%A0%BC" />
+            </ui:SettingsCard.Description>
             <ui:SettingsCard.HeaderIcon>
                 <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.StyleGuide_24_Regular}" />
             </ui:SettingsCard.HeaderIcon>
@@ -94,6 +100,14 @@
                 MinWidth="100"
                 ui:ControlHelper.PlaceholderText="{DynamicResource STranslate_Plugin_Tts_MicrosoftEdge_Style_Placeholder}"
                 Text="{Binding Style}" />
+        </ui:SettingsCard>
+
+        <!--  Support  -->
+        <ui:SettingsCard Description="{DynamicResource STranslate_Plugin_Tts_MicrosoftEdge_Support_Description}" Header="{DynamicResource STranslate_Plugin_Tts_MicrosoftEdge_Support}">
+            <ui:SettingsCard.HeaderIcon>
+                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.PersonSupport_20_Regular}" />
+            </ui:SettingsCard.HeaderIcon>
+            <ui:HyperlinkButton Content="github.com/wangwangit/tts/" NavigateUri="https://github.com/wangwangit/tts/" />
         </ui:SettingsCard>
     </ikw:SimpleStackPanel>
 </UserControl>
