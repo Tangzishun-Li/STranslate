@@ -417,6 +417,8 @@ public partial class Hotkey : ObservableObject
     {
         _defaultKey = defaultKey;
     }
+
+    public override string ToString() => Key;
 }
 
 public partial class GlobalHotkey : Hotkey
