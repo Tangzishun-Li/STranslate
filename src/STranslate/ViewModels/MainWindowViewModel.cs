@@ -267,7 +267,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
             ExecuteTranslate(Utilities.LinebreakHandler(result.Text, Settings.LineBreakHandleType));
         }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        catch (TaskCanceledException)
         {
             //TODO: 考虑提示用户取消操作
         }
@@ -310,7 +310,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
                 Utilities.SetText(result.Text);
             }
         }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        catch (TaskCanceledException)
         {
             //TODO: 考虑提示用户取消操作
         }
