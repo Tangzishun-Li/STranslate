@@ -36,8 +36,6 @@ public partial class HistoryViewModel : ObservableObject
 
     [ObservableProperty] public partial long TotalCount { get; set; }
 
-    [ObservableProperty] public partial HistoryModel? HistoryContent { get; set; }
-
     public HistoryViewModel(
         SqlService sqlService,
         ISnackbar snackbar,
@@ -71,16 +69,6 @@ public partial class HistoryViewModel : ObservableObject
 
         foreach (var item in historyItems)
             App.Current.Dispatcher.Invoke(() => HistoryItems.Add(item));
-    }
-
-    partial void OnSelectedItemChanged(HistoryModel? value)
-    {
-        if (value == null)
-        {
-            HistoryContent = null;
-            return;
-        }
-        HistoryContent = value;
     }
 
     [RelayCommand]

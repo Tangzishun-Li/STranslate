@@ -4,9 +4,9 @@ using STranslate.Plugin;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace STranslate.Views;
+namespace STranslate.Controls;
 
-public class HistoryContentSelector : DataTemplateSelector
+public class HistoryControlSelector : DataTemplateSelector
 {
     public DataTemplate? DictionaryTemplate { get; set; }
 

@@ -6,6 +6,7 @@
         <ResourceDictionary Source="pack://application:,,,/STranslate;component/Controls/IconButton.xaml" />
         <ResourceDictionary Source="pack://application:,,,/STranslate;component/Controls/InputControl.xaml" />
         <ResourceDictionary Source="pack://application:,,,/STranslate;component/Controls/HeaderControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/STranslate;component/Controls/HistoryControl.xaml" />
         <ResourceDictionary Source="pack://application:,,,/STranslate;component/Controls/HotkeyControl.xaml" />
         <ResourceDictionary Source="pack://application:,,,/STranslate;component/Controls/HotkeyDisplay.xaml" />
         <ResourceDictionary Source="pack://application:,,,/STranslate;component/Controls/OutputControl.xaml" />
