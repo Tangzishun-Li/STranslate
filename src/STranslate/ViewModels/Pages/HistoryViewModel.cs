@@ -1,8 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ObservableCollections;
 using STranslate.Core;
 using STranslate.Plugin;
-using System.Collections.ObjectModel;
 
 namespace STranslate.ViewModels.Pages;
 
@@ -23,12 +23,16 @@ public partial class HistoryViewModel : ObservableObject
     private bool CanLoadMore =>
         !_isLoading &&
         string.IsNullOrEmpty(SearchText) &&
-        (TotalCount == 0 || HistoryItems.Count != TotalCount);
+        (TotalCount == 0 || _items.Count != TotalCount);
 
     [ObservableProperty] public partial string SearchText { get; set; } = string.Empty;
 
-    // TODO: 后续考虑使用 https://github.com/Cysharp/ObservableCollections 优化性能
-    [ObservableProperty] public partial ObservableCollection<HistoryModel> HistoryItems { get; set; } = [];
+    /// <summary>
+    /// <see href="https://blog.coldwind.top/posts/more-observable-collections/"/>
+    /// </summary>
+    private readonly ObservableList<HistoryModel> _items = [];
+
+    public INotifyCollectionChangedSynchronizedViewList<HistoryModel> HistoryItems { get; }
 
     [ObservableProperty] public partial HistoryModel? SelectedItem { get; set; }
 
@@ -43,6 +47,8 @@ public partial class HistoryViewModel : ObservableObject
         _snackbar = snackbar;
         _i18n = i18n;
         _searchTimer = new Timer(async _ => await SearchAsync(), null, Timeout.Infinite, Timeout.Infinite);
+
+        HistoryItems = _items.ToNotifyCollectionChanged();
 
         _ = RefreshAsync();
     }
@@ -65,11 +71,10 @@ public partial class HistoryViewModel : ObservableObject
 
         App.Current.Dispatcher.Invoke(() =>
         {
-            HistoryItems.Clear();
+            _items.Clear();
             if (historyItems == null) return;
 
-            foreach (var item in historyItems)
-                HistoryItems.Add(item);
+            _items.AddRange(historyItems);
         });
     }
 
@@ -78,7 +83,7 @@ public partial class HistoryViewModel : ObservableObject
     {
         TotalCount = await _sqlService.GetCountAsync();
 
-        App.Current.Dispatcher.Invoke(() => HistoryItems.Clear());
+        App.Current.Dispatcher.Invoke(() => _items.Clear());
         _lastCursorTime = DateTime.Now;
 
         await LoadMoreAsync();
@@ -90,7 +95,7 @@ public partial class HistoryViewModel : ObservableObject
         var success = await _sqlService.DeleteDataAsync(historyModel);
         if (success)
         {
-            App.Current.Dispatcher.Invoke(() => HistoryItems.Remove(historyModel));
+            App.Current.Dispatcher.Invoke(() => _items.Remove(historyModel));
             TotalCount--;
         }
         else
@@ -119,9 +124,8 @@ public partial class HistoryViewModel : ObservableObject
             {
                 // 更新游标
                 _lastCursorTime = historyData.Last().Time;
-                var uniqueHistoryItems = historyData.Where(h => !HistoryItems.Any(existing => existing.Id == h.Id));
-                foreach (var item in uniqueHistoryItems)
-                    HistoryItems.Add(item);
+                var uniqueHistoryItems = historyData.Where(h => !_items.Any(existing => existing.Id == h.Id));
+                _items.AddRange(uniqueHistoryItems);
             });
         }
         finally

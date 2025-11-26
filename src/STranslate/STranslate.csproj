@@ -89,6 +89,7 @@
         <PackageReference Include="MouseKeyHook" />
         <PackageReference Include="NAudio" />
         <PackageReference Include="NHotkey.Wpf" />
+        <PackageReference Include="ObservableCollections" />
         <PackageReference Include="PracticalToolkit.WPF" />
         <PackageReference Include="ScreenGrab" />
         <PackageReference Include="Serilog.Extensions.Logging" />
