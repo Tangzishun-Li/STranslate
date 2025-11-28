@@ -14,6 +14,8 @@ public partial class AboutViewModel(Settings settings, DataProvider dataProvider
     public DataProvider DataProvider { get; } = dataProvider;
     [ObservableProperty] public partial string AppVersion { get; set; } = VersionInfo.GetVersion();
 
+    #region ICommand
+
     [RelayCommand]
     private void LocateUserData()
     {
@@ -48,6 +50,27 @@ public partial class AboutViewModel(Settings settings, DataProvider dataProvider
     [RelayCommand]
     private void Backup()
     {
+        if (Settings.BackupType == BackupType.Local)
+            LocalBackup();
+        else
+            WebDavBackup();
+    }
+
+    [RelayCommand]
+    private void Restore()
+    {
+        if (Settings.BackupType == BackupType.Local)
+            LocalRestore();
+        else
+            WebDavRestore();
+    }
+
+    #endregion
+
+    #region Local Backup
+
+    private void LocalBackup()
+    {
         var saveFileDialog = new SaveFileDialog
         {
             Title = "Select Backup File",
@@ -74,8 +97,7 @@ public partial class AboutViewModel(Settings settings, DataProvider dataProvider
         App.Current.Shutdown();
     }
 
-    [RelayCommand]
-    private void Restore()
+    private void LocalRestore()
     {
         var openFileDialog = new OpenFileDialog
         {
@@ -100,4 +122,18 @@ public partial class AboutViewModel(Settings settings, DataProvider dataProvider
         Utilities.ExecuteProgram(DataLocation.HostExePath, args);
         App.Current.Shutdown();
     }
+
+    #endregion
+
+    #region WebDav Backup
+
+    private void WebDavBackup()
+    {
+    }
+
+    private void WebDavRestore()
+    {
+    }
+
+    #endregion
 }

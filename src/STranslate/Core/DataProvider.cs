@@ -35,6 +35,7 @@ public class DataProvider
         DropdownDataGeneric<OcrResultShowingType>.UpdateLabels(OcrResultShowingTypes);
         DropdownDataGeneric<HistoryLimit>.UpdateLabels(HistoryLimits);
         DropdownDataGeneric<CopyAfterTranslation>.UpdateLabels(CopyAfterTranslations);
+        DropdownDataGeneric<BackupType>.UpdateLabels(BackupTypes);
     }
 
     #region LangEnums
@@ -147,6 +148,14 @@ public class DataProvider
     public class CopyAfterTranslationData : DropdownDataGeneric<CopyAfterTranslation> { }
     public List<CopyAfterTranslationData> CopyAfterTranslations { get; } =
         DropdownDataGeneric<CopyAfterTranslation>.GetValues<CopyAfterTranslationData>("CopyAfterTranslation");
+
+    #endregion
+
+    #region BackupTypes
+
+    public class BackupTypeData : DropdownDataGeneric<BackupType> { }
+    public List<BackupTypeData> BackupTypes { get; } =
+        DropdownDataGeneric<BackupType>.GetValues<BackupTypeData>("BackupType");
 
     #endregion
 }

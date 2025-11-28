@@ -61,6 +61,8 @@ public partial class Settings : ObservableObject
 
     [ObservableProperty] public partial bool CopyAfterTranslationNotAutomatic { get; set; }
 
+    [ObservableProperty] public partial BackupType BackupType { get; set; }
+
     [ObservableProperty] public partial int HttpTimeout { get; set; } = 30;
 
     [ObservableProperty] public partial LangEnum SourceLang { get; set; } = LangEnum.Auto;
@@ -575,6 +577,12 @@ public enum CopyAfterTranslation
     Seventh,
     Eighth,
     Last,
+}
+
+public enum BackupType
+{
+    Local,
+    WebDav,
 }
 
 #endregion

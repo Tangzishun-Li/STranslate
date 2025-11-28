@@ -425,6 +425,9 @@
     <sys:String x:Key="CopyAfterTranslationEighth">Eighth</sys:String>
     <sys:String x:Key="CopyAfterTranslationLast">Last</sys:String>
 
+    <sys:String x:Key="BackupTypeLocal">Local</sys:String>
+    <sys:String x:Key="BackupTypeWebDav">WebDav</sys:String>
+
     <!--  // Plugins //  -->
     <sys:String x:Key="UnsupportedSourceLang">Unsupported source language</sys:String>
     <sys:String x:Key="UnsupportedTargetLang">Unsupported target language</sys:String>

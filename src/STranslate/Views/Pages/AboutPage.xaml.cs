@@ -1,3 +1,4 @@
+using STranslate.Core;
 using STranslate.ViewModels.Pages;
 using System.Windows;
 
@@ -16,7 +17,7 @@ public partial class AboutPage
     public AboutViewModel ViewModel { get; }
 
     private void OnRepoCopy(object sender, RoutedEventArgs e)
-        => Clipboard.SetText(RepoTextBox.Text);
+        => Utilities.SetText(RepoTextBox.Text);
 
     private void OnReportRequest(object sender, RoutedEventArgs e)
     {

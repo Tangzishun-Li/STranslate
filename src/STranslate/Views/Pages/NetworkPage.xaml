@@ -126,7 +126,7 @@
                         <!--  代理服务器地址  -->
                         <ui:SettingsCard Header="{DynamicResource Network_ProxyAddress}" IsEnabled="{Binding Settings.Proxy.ProxyType, Converter={cnvt:ProxyTypeToEnabledConverter}}">
                             <ui:SettingsCard.HeaderIcon>
-                                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Globe_24_Regular}" />
+                                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Globe_20_Regular}" />
                             </ui:SettingsCard.HeaderIcon>
                             <TextBox
                                 MinWidth="200"
@@ -155,7 +155,7 @@
                             Header="{DynamicResource Network_ProxyUsername}"
                             IsEnabled="{Binding Settings.Proxy.ProxyType, Converter={cnvt:ProxyTypeToEnabledConverter}}">
                             <ui:SettingsCard.HeaderIcon>
-                                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Person_24_Regular}" />
+                                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Person_20_Regular}" />
                             </ui:SettingsCard.HeaderIcon>
                             <TextBox
                                 MinWidth="200"

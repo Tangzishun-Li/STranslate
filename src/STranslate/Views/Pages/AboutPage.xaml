@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:plugin="clr-namespace:STranslate.Plugin;assembly=STranslate.Plugin"
     xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
     xmlns:vm="clr-namespace:STranslate.ViewModels.Pages"
     Title="About"
@@ -72,19 +73,51 @@
                     </ikw:SimpleStackPanel>
                 </ui:SettingsCard>
 
-                <ui:SettingsCard Header="备份">
-                    <ui:SettingsCard.HeaderIcon>
-                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.BackpackAdd_20_Regular}" />
-                    </ui:SettingsCard.HeaderIcon>
-                    <Button Command="{Binding BackupCommand}" Content="创建备份" />
-                </ui:SettingsCard>
 
-                <ui:SettingsCard Header="恢复">
-                    <ui:SettingsCard.HeaderIcon>
-                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Backpack_20_Regular}" />
-                    </ui:SettingsCard.HeaderIcon>
-                    <Button Command="{Binding RestoreCommand}" Content="恢复备份" />
-                </ui:SettingsCard>
+                <ui:SettingsExpander Description="支持本地和WebDav的备份/恢复" Header="备份方式">
+                    <ui:SettingsExpander.HeaderIcon>
+                        <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.FolderZip_20_Regular}" />
+                    </ui:SettingsExpander.HeaderIcon>
+                    <ComboBox
+                        MinWidth="150"
+                        DisplayMemberPath="Display"
+                        ItemsSource="{Binding DataProvider.BackupTypes}"
+                        SelectedValue="{Binding Settings.BackupType}"
+                        SelectedValuePath="Value" />
+
+                    <ui:SettingsExpander.Items>
+                        <ui:SettingsCard Header="WebDav 地址" IsEnabled="{Binding Settings.BackupType, Converter={cnvt:BackupTypeBoolConverter}, ConverterParameter=WebDav}">
+                            <ui:SettingsCard.HeaderIcon>
+                                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Globe_20_Regular}" />
+                            </ui:SettingsCard.HeaderIcon>
+                            <TextBox MinWidth="200" />
+                        </ui:SettingsCard>
+                        <ui:SettingsCard Header="WebDav 用户名" IsEnabled="{Binding Settings.BackupType, Converter={cnvt:BackupTypeBoolConverter}, ConverterParameter=WebDav}">
+                            <ui:SettingsCard.HeaderIcon>
+                                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Person_20_Regular}" />
+                            </ui:SettingsCard.HeaderIcon>
+                            <TextBox MinWidth="200" />
+                        </ui:SettingsCard>
+                        <ui:SettingsCard Header="WebDav 密码" IsEnabled="{Binding Settings.BackupType, Converter={cnvt:BackupTypeBoolConverter}, ConverterParameter=WebDav}">
+                            <ui:SettingsCard.HeaderIcon>
+                                <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Password_20_Regular}" />
+                            </ui:SettingsCard.HeaderIcon>
+                            <PasswordBox MinWidth="200" />
+                            <!--<PasswordBox
+                                MinWidth="200"
+                                plugin:PasswordBoxAssistant.Attach="True"
+                                plugin:PasswordBoxAssistant.Password="{Binding Settings.Proxy.ProxyPassword}"
+                                ui:ControlHelper.PlaceholderText="{DynamicResource Network_ProxyPasswordPlaceholder}" />-->
+                        </ui:SettingsCard>
+
+                        <ui:SettingsCard Header="备份">
+                            <Button Command="{Binding BackupCommand}" Content="创建备份" />
+                        </ui:SettingsCard>
+                        <ui:SettingsCard Header="恢复">
+                            <Button Command="{Binding RestoreCommand}" Content="恢复备份" />
+                        </ui:SettingsCard>
+                    </ui:SettingsExpander.Items>
+                </ui:SettingsExpander>
 
                 <ui:SettingsCard Header="{DynamicResource LogLevel}">
                     <ui:SettingsCard.HeaderIcon>
