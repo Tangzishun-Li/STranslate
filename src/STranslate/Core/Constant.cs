@@ -21,6 +21,7 @@ public class Constant
     public const string NeedDelete = "NeedDelete.txt";
     public const string NeedUpgrade = "_NeedUpgrade";
     public const string InfoFileName = ".INFO";
+    public const string BackupFileName = ".BACKUP";
 
     /// <summary>
     ///     用户软件根目录

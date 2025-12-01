@@ -82,32 +82,30 @@
                         MinWidth="150"
                         DisplayMemberPath="Display"
                         ItemsSource="{Binding DataProvider.BackupTypes}"
-                        SelectedValue="{Binding Settings.BackupType}"
+                        SelectedValue="{Binding Settings.Backup.Type}"
                         SelectedValuePath="Value" />
 
                     <ui:SettingsExpander.Items>
-                        <ui:SettingsCard Header="WebDav 地址" IsEnabled="{Binding Settings.BackupType, Converter={cnvt:BackupTypeBoolConverter}, ConverterParameter=WebDav}">
+                        <ui:SettingsCard Header="WebDav 地址" Visibility="{Binding Settings.Backup.Type, Converter={cnvt:BackupTypeVisibilityConverter}, ConverterParameter=WebDav}">
                             <ui:SettingsCard.HeaderIcon>
                                 <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Globe_20_Regular}" />
                             </ui:SettingsCard.HeaderIcon>
-                            <TextBox MinWidth="200" />
+                            <TextBox MinWidth="200" Text="{Binding Settings.Backup.Address}" />
                         </ui:SettingsCard>
-                        <ui:SettingsCard Header="WebDav 用户名" IsEnabled="{Binding Settings.BackupType, Converter={cnvt:BackupTypeBoolConverter}, ConverterParameter=WebDav}">
+                        <ui:SettingsCard Header="WebDav 用户名" Visibility="{Binding Settings.Backup.Type, Converter={cnvt:BackupTypeVisibilityConverter}, ConverterParameter=WebDav}">
                             <ui:SettingsCard.HeaderIcon>
                                 <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Person_20_Regular}" />
                             </ui:SettingsCard.HeaderIcon>
-                            <TextBox MinWidth="200" />
+                            <TextBox MinWidth="200" Text="{Binding Settings.Backup.Username}" />
                         </ui:SettingsCard>
-                        <ui:SettingsCard Header="WebDav 密码" IsEnabled="{Binding Settings.BackupType, Converter={cnvt:BackupTypeBoolConverter}, ConverterParameter=WebDav}">
+                        <ui:SettingsCard Header="WebDav 密码" Visibility="{Binding Settings.Backup.Type, Converter={cnvt:BackupTypeVisibilityConverter}, ConverterParameter=WebDav}">
                             <ui:SettingsCard.HeaderIcon>
                                 <ui:FontIcon Icon="{x:Static ui:FluentSystemIcons.Password_20_Regular}" />
                             </ui:SettingsCard.HeaderIcon>
-                            <PasswordBox MinWidth="200" />
-                            <!--<PasswordBox
+                            <PasswordBox
                                 MinWidth="200"
                                 plugin:PasswordBoxAssistant.Attach="True"
-                                plugin:PasswordBoxAssistant.Password="{Binding Settings.Proxy.ProxyPassword}"
-                                ui:ControlHelper.PlaceholderText="{DynamicResource Network_ProxyPasswordPlaceholder}" />-->
+                                plugin:PasswordBoxAssistant.Password="{Binding Settings.Backup.Password}" />
                         </ui:SettingsCard>
 
                         <ui:SettingsCard Header="备份">

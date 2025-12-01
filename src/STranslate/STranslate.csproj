@@ -106,6 +106,7 @@
         </PackageReference>
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
         <PackageReference Include="System.Reflection.MetadataLoadContext" />
+        <PackageReference Include="WebDav.Client" />
         <PackageReference Include="WpfMath" />
         <PackageReference Include="XamlFlair.WPF" />
         <PackageReference Include="ZXing.Net.Bindings.ZKWeb.System.Drawing" />

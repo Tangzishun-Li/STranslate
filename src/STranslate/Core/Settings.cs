@@ -6,6 +6,7 @@ using Serilog.Events;
 using STranslate.Helpers;
 using STranslate.Plugin;
 using STranslate.Views;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace STranslate.Core;
@@ -60,8 +61,6 @@ public partial class Settings : ObservableObject
     [ObservableProperty] public partial CopyAfterTranslation CopyAfterTranslation { get; set; }
 
     [ObservableProperty] public partial bool CopyAfterTranslationNotAutomatic { get; set; }
-
-    [ObservableProperty] public partial BackupType BackupType { get; set; }
 
     [ObservableProperty] public partial int HttpTimeout { get; set; } = 30;
 
@@ -230,7 +229,42 @@ public partial class Settings : ObservableObject
 
     [ObservableProperty] public partial int ExternalCallPort { get; set; } = 50020;
 
+    /// <summary>
+    /// 将属性变更通知冒泡到Settings的订阅者
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OnSubPropertyChanged(object? sender, PropertyChangedEventArgs e) => OnPropertyChanged(e);
+
     [ObservableProperty] public partial ProxySettings Proxy { get; set; } = new();
+
+    partial void OnProxyChanged(ProxySettings? oldValue, ProxySettings? newValue)
+    {
+        if (oldValue != null)
+        {
+            oldValue.PropertyChanged -= OnSubPropertyChanged;
+        }
+
+        if (newValue != null)
+        {
+            newValue.PropertyChanged += OnSubPropertyChanged;
+        }
+    }
+
+    [ObservableProperty] public partial BackupSettings Backup { get; set; } = new();
+
+    partial void OnBackupChanged(BackupSettings? oldValue, BackupSettings? newValue)
+    {
+        if (oldValue != null)
+        {
+            oldValue.PropertyChanged -= OnSubPropertyChanged;
+        }
+
+        if (newValue != null)
+        {
+            newValue.PropertyChanged += OnSubPropertyChanged;
+        }
+    }
 
     #endregion
 
@@ -249,11 +283,6 @@ public partial class Settings : ObservableObject
                 SaveWithDebounce();
             else
                 Save();
-        };
-
-        Proxy.PropertyChanged += (s, e) =>
-        {
-            Save();
         };
     }
 
@@ -577,12 +606,6 @@ public enum CopyAfterTranslation
     Seventh,
     Eighth,
     Last,
-}
-
-public enum BackupType
-{
-    Local,
-    WebDav,
 }
 
 #endregion

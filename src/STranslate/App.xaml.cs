@@ -209,6 +209,7 @@ public partial class App : ISingleInstanceApp, INavigation, IDisposable
             _hotkeySettings?.LazyInitialize();
             UpdateToolTip();
             CheckAndShowInfo();
+            WebDavBackupOperation();
         };
 
         RegisterExitEvents();
@@ -258,6 +259,37 @@ public partial class App : ISingleInstanceApp, INavigation, IDisposable
             {
                 _logger?.LogWarning("Cannot delete the information file.");
             }
+        }
+    }
+
+    private void WebDavBackupOperation()
+    {
+        if (!File.Exists(DataLocation.BackupFilePath))
+            return;
+
+        try
+        {
+            var filePath = File.ReadAllText(DataLocation.BackupFilePath);
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                _logger?.LogWarning("The backup file is empty, will not show the message box.");
+                return;
+            }
+
+            _ = Ioc.Default.GetRequiredService<ViewModels.Pages.AboutViewModel>()
+                .PostWebDavBackupAsync(filePath);
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex, "Cannot get backup message");
+        }
+        finally
+        {
+            try
+            {
+                File.Delete(DataLocation.BackupFilePath);
+            }
+            catch { }
         }
     }
 

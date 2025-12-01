@@ -7,13 +7,9 @@ using System.Windows.Markup;
 
 namespace STranslate.Converters;
 
-public class ExecutionModeVisibilityConverter : EnumToVisibilityConverter<ExecutionMode>
-{
-
-}
-public class OcrResultShowingTypeVisibilityConverter : EnumToVisibilityConverter<OcrResultShowingType>
-{
-}
+public class BackupTypeVisibilityConverter : EnumToVisibilityConverter<BackupType> { }
+public class ExecutionModeVisibilityConverter : EnumToVisibilityConverter<ExecutionMode> { }
+public class OcrResultShowingTypeVisibilityConverter : EnumToVisibilityConverter<OcrResultShowingType> { }
 
 public class EnumToVisibilityConverter<T> : MarkupExtension, IValueConverter where T : struct, Enum
 {
