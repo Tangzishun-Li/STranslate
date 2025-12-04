@@ -1,15 +1,16 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using iNKORE.UI.WPF.Modern.Controls;
+using Microsoft.Win32;
 using STranslate.Core;
 using STranslate.Helpers;
-using STranslate.Services;
 using STranslate.Plugin;
+using STranslate.Services;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Data;
-using Microsoft.Win32;
 
 namespace STranslate.ViewModels.Pages;
 
@@ -191,13 +192,32 @@ public partial class PluginViewModel : ObservableObject
             Multiselect = true,
             RestoreDirectory = true
         };
-        if (dialog.ShowDialog() != true)
+        if (dialog.ShowDialog() != true) return;
+
+        await InstallPluginsAsync(dialog.FileNames);
+    }
+
+    [RelayCommand]
+    private async Task InstallPluginsAsync(DragEventArgs e)
+    {
+        if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+
+        if (e.Data.GetData(DataFormats.FileDrop) is not string[] files) return;
+
+        var spkgFiles = files.Where(f => f.EndsWith(".spkg", StringComparison.OrdinalIgnoreCase)).ToList();
+        if (spkgFiles.Count == 0)
         {
+            _snackbar.ShowError(_i18n.GetTranslation("NoValidPluginFile"));
             return;
         }
 
+        await InstallPluginsAsync(spkgFiles);
+    }
+
+    private async Task InstallPluginsAsync(IEnumerable<string> files)
+    {
         var needRestart = false;
-        foreach (var spkgPluginFilePath in dialog.FileNames)
+        foreach (var spkgPluginFilePath in files)
         {
             var installResult = _pluginService.InstallPlugin(spkgPluginFilePath);
 

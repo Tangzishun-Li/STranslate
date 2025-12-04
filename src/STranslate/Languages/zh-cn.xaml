@@ -140,6 +140,7 @@
     <sys:String x:Key="PluginVersion">版本</sys:String>
     <sys:String x:Key="SearchPlugin">搜索插件</sys:String>
     <sys:String x:Key="SearchPluginToolTip">按 Ctrl+F 搜索插件</sys:String>
+    <sys:String x:Key="DropInstallPlugin">松开安装插件</sys:String>
 
     <!--  // Network Page //  -->
     <sys:String x:Key="Network_EnableExternalCall">启用外部调用</sys:String>
@@ -533,6 +534,7 @@
     <sys:String x:Key="ImtransFailed">图片翻译失败</sys:String>
     <sys:String x:Key="NoTranslateService">未找到可用的翻译服务</sys:String>
     <sys:String x:Key="NavigateFailed">已经到头了</sys:String>
+    <sys:String x:Key="NoValidPluginFile">无SPKG文件</sys:String>
 
     <!--  // Processing Messages //  -->
     <sys:String x:Key="RecognizingImageText">正在识别图片文字...</sys:String>

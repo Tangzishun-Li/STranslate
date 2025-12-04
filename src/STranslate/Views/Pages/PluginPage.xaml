@@ -5,6 +5,7 @@
     xmlns:cnvt="clr-namespace:STranslate.Converters"
     xmlns:control="clr-namespace:STranslate.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:plugin="clr-namespace:STranslate.Plugin;assembly=STranslate.Plugin"
@@ -20,7 +21,29 @@
     <ui:Page.Resources>
         <s:BindingProxy x:Key="ViewModelProxy" Data="{Binding .}" />
     </ui:Page.Resources>
-    <Grid Margin="20,10">
+    <Grid Margin="20,10" AllowDrop="True">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="DragEnter">
+                <i:ChangePropertyAction
+                    PropertyName="Visibility"
+                    TargetObject="{Binding ElementName=PART_DropPanel}"
+                    Value="Visible" />
+            </i:EventTrigger>
+            <i:EventTrigger EventName="DragLeave">
+                <i:ChangePropertyAction
+                    PropertyName="Visibility"
+                    TargetObject="{Binding ElementName=PART_DropPanel}"
+                    Value="Collapsed" />
+            </i:EventTrigger>
+            <i:EventTrigger EventName="Drop">
+                <i:ChangePropertyAction
+                    PropertyName="Visibility"
+                    TargetObject="{Binding ElementName=PART_DropPanel}"
+                    Value="Collapsed" />
+                <i:InvokeCommandAction Command="{Binding InstallPluginsCommand}" PassEventArgsToCommand="True" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -222,5 +245,33 @@
                 <Run Text="{Binding VocabularyPluginCount, Mode=OneWay}" />
             </TextBlock>
         </ikw:SimpleStackPanel>
+
+        <Grid
+            Name="PART_DropPanel"
+            Grid.RowSpan="3"
+            Visibility="Collapsed">
+            <Border Background="{DynamicResource {x:Static ui:ThemeKeys.SystemControlBackgroundChromeBlackMediumLowBrushKey}}" CornerRadius="6" />
+            <StackPanel
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <ui:FontIcon
+                    FontSize="{DynamicResource STControlFontSize18}"
+                    Foreground="{DynamicResource {x:Static ui:ThemeKeys.TextFillColorInverseBrushKey}}"
+                    Icon="{x:Static ui:FluentSystemIcons.AppsAddIn_20_Regular}" />
+                <TextBlock
+                    Margin="5,0,0,0"
+                    Foreground="{DynamicResource {x:Static ui:ThemeKeys.TextFillColorInverseBrushKey}}"
+                    Text="{DynamicResource DropInstallPlugin}" />
+            </StackPanel>
+            <Rectangle
+                Width="250"
+                MaxHeight="80"
+                RadiusX="10"
+                RadiusY="10"
+                Stroke="{DynamicResource {x:Static ui:ThemeKeys.TextFillColorInverseBrushKey}}"
+                StrokeDashArray="3"
+                StrokeThickness="2" />
+        </Grid>
     </Grid>
 </ui:Page>
