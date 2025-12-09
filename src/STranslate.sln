@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Items", "Items", "{02EA681E
 		..\README.md = ..\README.md
 		..\README_ZH.md = ..\README_ZH.md
 		SolutionAssemblyInfo.cs = SolutionAssemblyInfo.cs
+		..\Sponsor.md = ..\Sponsor.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{5AB03004-BE0C-4B0A-9458-55324D128FD9}"
