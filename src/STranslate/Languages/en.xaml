@@ -60,6 +60,7 @@
     <sys:String x:Key="General_ScreenshotTranslateInImage">In-Image Translation</sys:String>
     <sys:String x:Key="General_ScreenshotTranslateInImageDescription">Whether to enable in-image translation during screenshot translation.</sys:String>
     <sys:String x:Key="General_ScreenshotTranslateInImageButtonVisible">Show the In-Image Translation button on the main interface.</sys:String>
+    <sys:String x:Key="General_HideNotifyIcon">Hide NotifyIcon</sys:String>
     <sys:String x:Key="General_ColorTheme">Color Theme</sys:String>
     <sys:String x:Key="General_ColorThemeDescription">Choose the color theme to display.</sys:String>
     <sys:String x:Key="General_ColorThemeButtonVisible">Show Color Theme button on main interface</sys:String>

@@ -40,6 +40,8 @@ public partial class Settings : ObservableObject
 
     [ObservableProperty] public partial bool IgnoreHotkeysOnFullscreen { get; set; } = false;
 
+    [ObservableProperty] public partial bool HideNotifyIcon { get; set; } = false;
+
     [ObservableProperty] public partial ElementTheme ColorScheme { get; set; }
 
     [ObservableProperty] public partial HistoryLimit HistoryLimit { get; set; } = HistoryLimit.Limit1000;

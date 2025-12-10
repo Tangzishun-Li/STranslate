@@ -60,6 +60,7 @@
     <sys:String x:Key="General_ScreenshotTranslateInImage">图片内翻译</sys:String>
     <sys:String x:Key="General_ScreenshotTranslateInImageDescription">截图翻译时是否启用图片内翻译.</sys:String>
     <sys:String x:Key="General_ScreenshotTranslateInImageButtonVisible">在主界面上显示启用图片内翻译按钮</sys:String>
+    <sys:String x:Key="General_HideNotifyIcon">隐藏托盘图标</sys:String>
     <sys:String x:Key="General_ColorTheme">颜色主题</sys:String>
     <sys:String x:Key="General_ColorThemeDescription">选择要显示的颜色主题。</sys:String>
     <sys:String x:Key="General_ColorThemeButtonVisible">主界面显示颜色主题按钮</sys:String>

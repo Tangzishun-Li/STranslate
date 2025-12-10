@@ -268,7 +268,8 @@
             IconSource="{Binding TrayIcon}"
             LeftClickCommand="{Binding ToggleAppCommand}"
             NoLeftClickDelay="True"
-            ToolTipText="{Binding TrayToolTip}">
+            ToolTipText="{Binding TrayToolTip}"
+            Visibility="{Binding Settings.HideNotifyIcon, Converter={cnvt:BoolToVisibilityInverseConverter}}">
             <tb:TaskbarIcon.Resources>
                 <s:BindingProxy x:Key="ViewModel" Data="{Binding}" />
             </tb:TaskbarIcon.Resources>
