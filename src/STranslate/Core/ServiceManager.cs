@@ -91,7 +91,7 @@ public class ServiceManager
 
             }
         }
-        //TODO: 如果ServiceSettings如果维护出错多出结果的话需要处理
+
         var svcSettingJsons = serviceDataCollections.SelectMany(item => item.Select(x => x.SvcID)).ToList();
         var lossSvcs = svcSettingJsons.Except(svcJsonNames);
         if (lossSvcs.Any())
@@ -101,6 +101,9 @@ public class ServiceManager
             _serviceSettings.TtsSvcDatas.RemoveAll(s => lossSvcs.Contains(s.SvcID));
             _serviceSettings.VocabularySvcDatas.RemoveAll(s => lossSvcs.Contains(s.SvcID));
             _serviceSettings.Save();
+
+            // 删除丢失服务对应的JSON文件，并清理空目录
+            TryCleanupLostServiceFiles(lossSvcs);
 
             _logger.LogWarning($"发现丢失的服务配置，已自动移除: {string.Join(", ", lossSvcs)}");
         }
@@ -199,5 +202,49 @@ public class ServiceManager
         service.Context = context;
 
         return service;
+    }
+
+    /// <summary>
+    /// 尝试删除与丢失的服务关联的配置文件和目录。
+    /// </summary>
+    /// <remarks>
+    /// 此方法会移除以指定服务标识命名的配置文件，并在其父目录变为空时将其删除。文件或目录删除过程中遇到的错误会被记录下来，但不会中止清理过程。
+    /// </remarks>
+    /// <param name="lossSvcs">这是一组服务标识符，用于代表那些需要清理配置文件的服务。每个标识符都用于定位并删除相应的文件。</param>
+    private void TryCleanupLostServiceFiles(IEnumerable<string> lossSvcs)
+    {
+        foreach (var svcId in lossSvcs)
+        {
+            var directories = Directory.EnumerateDirectories(DataLocation.PluginSettingsDirectory);
+            foreach (var dir in directories)
+            {
+                var filePath = Path.Combine(dir, $"{svcId}.json");
+                if (File.Exists(filePath))
+                {
+                    try
+                    {
+                        File.Delete(filePath);
+                        _logger.LogInformation($"已删除丢失服务的配置文件: {filePath}");
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, $"删除丢失服务配置文件失败: {filePath}");
+                    }
+                    // 检查目录是否为空，若为空则删除该目录
+                    if (!Directory.EnumerateFileSystemEntries(dir).Any())
+                    {
+                        try
+                        {
+                            Directory.Delete(dir);
+                            _logger.LogInformation($"已删除空的服务配置目录: {dir}");
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, $"删除空服务配置目录失败: {dir}");
+                        }
+                    }
+                }
+            }
+        }
     }
 }
