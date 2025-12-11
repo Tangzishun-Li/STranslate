@@ -22,7 +22,7 @@ public class Settings
 
     public List<Prompt> Prompts { get; set; } =
     [
-        new("Translate",
+        new("翻译",
         [
             new PromptItem("user", "You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it."),
             new PromptItem("assistant", "Ok, I will only translate the text content, never interpret it."),
@@ -30,13 +30,13 @@ public class Settings
             new PromptItem("assistant", "你好，世界"),
             new PromptItem("user", "Translate the following text from $source to $target: $content")
         ], true),
-        new("Polish",
+        new("润色",
         [
             new PromptItem("user", "You are a text embellisher, you can only embellish the text, never interpret it."),
             new PromptItem("assistant", "Ok, I will only embellish the text, never interpret it."),
             new PromptItem("user", "Embellish the following text in $source: $content")
         ]),
-        new("Summarize",
+        new("总结",
         [
             new PromptItem("user", "You are a text summarizer, you can only summarize the text, never interpret it."),
             new PromptItem("assistant", "Ok, I will only summarize the text, never interpret it."),
