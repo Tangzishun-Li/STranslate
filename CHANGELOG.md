@@ -16,4 +16,4 @@
 
 更多插件详见 [https://github.com/STranslate](https://github.com/STranslate)
 
- **完整更新日志:** [1.5.5.802...2.0.0](https://github.com/STranslate/STranslate/compare/1.5.5.802...2.0.0)
+ **完整更新日志:** [2.0.0...2.0.1](https://github.com/STranslate/STranslate/compare/2.0.0...2.0.1)
