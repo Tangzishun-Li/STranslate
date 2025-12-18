@@ -21,7 +21,7 @@
     <ui:Page.Resources>
         <s:BindingProxy x:Key="ViewModelProxy" Data="{Binding .}" />
     </ui:Page.Resources>
-    <Grid Margin="20,10" AllowDrop="True">
+    <Grid AllowDrop="True">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="DragEnter">
                 <i:ChangePropertyAction
@@ -49,7 +49,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Margin="0,0,0,12">
+        <DockPanel Grid.Row="0" Margin="20,10,0,12">
             <TextBlock
                 DockPanel.Dock="Left"
                 Style="{DynamicResource {x:Static ui:ThemeKeys.SubtitleTextBlockStyleKey}}"
@@ -134,7 +134,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <ContentPresenter />
+                                <ContentPresenter Margin="0,0,20,0" />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
