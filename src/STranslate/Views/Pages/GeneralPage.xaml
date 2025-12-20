@@ -141,6 +141,22 @@
                         SelectedValuePath="Value" />
 
                     <ui:SettingsExpander.Items>
+                        <ui:SettingsCard
+                            Description="{DynamicResource General_LocalDetectorDescription}"
+                            Header="{DynamicResource General_LocalDetector}"
+                            Visibility="{Binding Settings.LanguageDetector, Converter={cnvt:LanguageDetectorTypeVisibilityConverter}, ConverterParameter=Local}">
+                            <ikw:SimpleStackPanel Orientation="Horizontal" Spacing="12">
+                                <Slider
+                                    x:Name="PART_DetectorRate"
+                                    IsSnapToTickEnabled="True"
+                                    Maximum="0.99"
+                                    Minimum="0.01"
+                                    TickFrequency="0.01"
+                                    Value="{Binding Settings.LocalDetectorRate}" />
+                                <TextBlock VerticalAlignment="Center" Text="{Binding ElementName=PART_DetectorRate, Path=Value, StringFormat={}{0:0.00}}" />
+                            </ikw:SimpleStackPanel>
+                        </ui:SettingsCard>
+
                         <ui:SettingsCard Description="{DynamicResource General_DefaultSourceLanguageDescription}" Header="{DynamicResource General_DefaultSourceLanguage}">
                             <ComboBox
                                 DisplayMemberPath="Display"

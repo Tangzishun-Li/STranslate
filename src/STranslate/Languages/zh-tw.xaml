@@ -42,6 +42,8 @@
     <sys:String x:Key="General_IgnoreHotkeysOnFullscreen">全螢幕模式下忽略快捷鍵</sys:String>
     <sys:String x:Key="General_IgnoreHotkeysOnFullscreenDescription">優先順序低於「停用全域快捷鍵」，一般用於遊戲場景。</sys:String>
     <sys:String x:Key="General_LanguageDetector">語言檢測器</sys:String>
+    <sys:String x:Key="General_LocalDetector">本地識別中英字元比例</sys:String>
+    <sys:String x:Key="General_LocalDetectorDescription">僅針對「本地識別」中英文情況下英文字元佔總字元數的比例。</sys:String>
     <sys:String x:Key="General_DefaultSourceLanguage">預設來源語言</sys:String>
     <sys:String x:Key="General_DefaultSourceLanguageDescription">當自動檢測失敗時使用此語言。</sys:String>
     <sys:String x:Key="General_FirstLanguage">第一語言</sys:String>

@@ -42,6 +42,8 @@
     <sys:String x:Key="General_IgnoreHotkeysOnFullscreen">Ignore Hotkeys in Fullscreen Mode</sys:String>
     <sys:String x:Key="General_IgnoreHotkeysOnFullscreenDescription">Lower priority than "Disable Global Hotkeys", usually used in gaming scenarios.</sys:String>
     <sys:String x:Key="General_LanguageDetector">Language Detector</sys:String>
+    <sys:String x:Key="General_LocalDetector">Local Detection Chinese-English Character Ratio</sys:String>
+    <sys:String x:Key="General_LocalDetectorDescription">Only applies to "Local Detection" for the proportion of English characters to total characters in Chinese-English text.</sys:String>
     <sys:String x:Key="General_DefaultSourceLanguage">Default Source Language</sys:String>
     <sys:String x:Key="General_DefaultSourceLanguageDescription">Use this language when auto detection fails.</sys:String>
     <sys:String x:Key="General_FirstLanguage">First Language</sys:String>

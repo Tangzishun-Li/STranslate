@@ -30,7 +30,7 @@ public class LanguageDetector
             onStarted?.Invoke();
             try
             {
-                var detected = await DetectAsync(content, _settings.LanguageDetector, token: cancellationToken).ConfigureAwait(false);
+                var detected = await DetectAsync(content, _settings.LanguageDetector, _settings.LocalDetectorRate, cancellationToken).ConfigureAwait(false);
                 isSuccess = detected != LangEnum.Auto;
                 source = isSuccess ? detected : _settings.SourceLangIfAuto;
 

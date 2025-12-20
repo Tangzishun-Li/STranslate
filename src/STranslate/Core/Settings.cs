@@ -80,6 +80,11 @@ public partial class Settings : ObservableObject
     [ObservableProperty] public partial LanguageDetectorType LanguageDetector { get; set; } = LanguageDetectorType.Local;
 
     /// <summary>
+    /// 本地识别英文比例阈值
+    /// </summary>
+    [ObservableProperty] public partial double LocalDetectorRate { get; set; } = 0.8;
+
+    /// <summary>
     ///     原始语言识别为自动时使用该配置
     ///     * 使用在线识别服务出错时使用
     /// </summary>
@@ -419,6 +424,9 @@ public partial class Settings : ObservableObject
                 break;
             case nameof(IgnoreHotkeysOnFullscreen):
                 Ioc.Default.GetRequiredService<HotkeySettings>().ApplyIgnoreOnFullScreen();
+                break;
+            case nameof(LocalDetectorRate):
+                LocalDetectorRate = Math.Round(LocalDetectorRate, 2);
                 break;
             default:
                 break;
