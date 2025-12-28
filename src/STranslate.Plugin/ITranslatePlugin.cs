@@ -280,6 +280,7 @@ public interface IDictionaryPlugin : IPlugin
         DictionaryResult.ThirdPersonSingular.Clear();
         DictionaryResult.Comparative.Clear();
         DictionaryResult.Superlative.Clear();
+        DictionaryResult.Tags.Clear();
         DictionaryResult.Sentences.Clear();
         DictionaryResult.Duration = TimeSpan.Zero;
         DictionaryResult.IsProcessing = false;
@@ -321,6 +322,7 @@ public partial class DictionaryResult : ObservableObject
             other.ThirdPersonSingular.ToList().ForEach(ThirdPersonSingular.Add);
             other.Comparative.ToList().ForEach(Comparative.Add);
             other.Superlative.ToList().ForEach(Superlative.Add);
+            other.Tags.ToList().ForEach(Tags.Add);
             other.Sentences.ToList().ForEach(Sentences.Add);
         });
     }
@@ -378,6 +380,11 @@ public partial class DictionaryResult : ObservableObject
     /// 最高级
     /// </summary>
     public ObservableCollection<string> Superlative { get; set; } = [];
+
+    /// <summary>
+    /// 标签
+    /// </summary>
+    public ObservableCollection<string> Tags { get; set; } = [];
 
     /// <summary>
     /// 句子

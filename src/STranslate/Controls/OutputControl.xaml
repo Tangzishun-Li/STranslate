@@ -356,6 +356,12 @@
                                 ExecuteCommand="{Binding RelativeSource={RelativeSource AncestorType=control:OutputControl}, Path=ExplainCommand}"
                                 ItemsSource="{Binding Plugin.DictionaryResult.Superlative}" />
 
+                            <!--  标签  -->
+                            <control:WordExchange
+                                Title="{DynamicResource Tag}"
+                                IsEnabled="False"
+                                ItemsSource="{Binding Plugin.DictionaryResult.Tags}" />
+
                             <!--#endregion-->
 
                             <!--  例句显示  -->

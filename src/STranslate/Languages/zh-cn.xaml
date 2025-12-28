@@ -551,6 +551,7 @@
     <sys:String x:Key="ThirdPersonSingular">第三人称单数</sys:String>
     <sys:String x:Key="Comparative">比较级</sys:String>
     <sys:String x:Key="Superlative">最高级</sys:String>
+    <sys:String x:Key="Tag">标签</sys:String>
 
     <!--  // OCR Window //  -->
     <sys:String x:Key="SelectAll">全选</sys:String>

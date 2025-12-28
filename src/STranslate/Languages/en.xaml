@@ -550,6 +550,7 @@
     <sys:String x:Key="ThirdPersonSingular">Third Person Singular</sys:String>
     <sys:String x:Key="Comparative">Comparative</sys:String>
     <sys:String x:Key="Superlative">Superlative</sys:String>
+    <sys:String x:Key="Tag">Tag</sys:String>
 
     <!--  // OCR Window //  -->
     <sys:String x:Key="SelectAll">Select All</sys:String>

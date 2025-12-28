@@ -63,7 +63,8 @@ public class DictionaryWordFormsToVisibilityConverter : MarkupExtension, IValueC
                HasItems(result.PresentParticiple) ||
                HasItems(result.ThirdPersonSingular) ||
                HasItems(result.Comparative) ||
-               HasItems(result.Superlative);
+               HasItems(result.Superlative) ||
+               HasItems(result.Tags);
     }
 
     /// <summary>
