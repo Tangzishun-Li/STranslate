@@ -38,6 +38,12 @@ public class HotkeyMapper
                 return SetWithChefKeys(hotkeyStr, action);
             }
 
+            // 避免注册空热键导致异常 谷歌浏览器通知会触发注册里的回调
+            // https://github.com/STranslate/STranslate/issues/559
+            if (string.IsNullOrEmpty(hotkeyStr))
+                return true;
+            //_logger.LogInformation("Registering hotkey: {HotkeyStr}", hotkeyStr);
+
             HotkeyManager.Current.AddOrReplace(hotkeyStr, hotkey.CharKey, hotkey.ModifierKeys, (_, _) => action.Invoke());
 
             return true;
