@@ -248,7 +248,7 @@ public partial class ImageTranslateWindowViewModel : ObservableObject, IDisposab
     [RelayCommand]
     private async Task OpenSettingsAsync()
     {
-        await _mainWindowViewModel.OpenSettingsCommand.ExecuteAsync(null);
+        await _mainWindowViewModel.OpenSettingsInternalAsync(null);
 
         if (Keyboard.Modifiers == ModifierKeys.Control)
         {

@@ -5,17 +5,17 @@ using iNKORE.UI.WPF.Modern;
 using Microsoft.Extensions.Logging;
 using STranslate.Core;
 using STranslate.Helpers;
-using STranslate.Services;
 using STranslate.Plugin;
 using STranslate.Resources;
+using STranslate.Services;
 using STranslate.ViewModels.Pages;
 using STranslate.Views;
 using STranslate.Views.Pages;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using System.Windows.Input;
 
 namespace STranslate.ViewModels;
 
@@ -1170,6 +1170,16 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task OpenSettingsAsync(object? parameter)
     {
+        await OpenSettingsInternalAsync(parameter);
+
+        Application.Current.Windows
+                    .OfType<SettingsWindow>()
+                    .First()
+                    .Navigate(nameof(GeneralPage));
+    }
+
+    internal async Task OpenSettingsInternalAsync(object? parameter)
+    {
         // 如果由 ContextMenu 触发，等待关闭动画完成
         if (parameter is not null)
             await Task.Delay(ContextMenuCloseAnimationDelay);
@@ -1184,7 +1194,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task OpenHistoryAsync()
     {
-        await OpenSettingsAsync(null);
+        await OpenSettingsInternalAsync(null);
         Application.Current.Windows
                     .OfType<SettingsWindow>()
                     .First()
@@ -1194,7 +1204,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     [RelayCommand]
     private async Task NavigateAsync(Service service)
     {
-        await OpenSettingsAsync(string.Empty);
+        await OpenSettingsInternalAsync(string.Empty);
         await Application.Current.Dispatcher.InvokeAsync(() =>
         {
             Application.Current.Windows

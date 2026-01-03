@@ -23,9 +23,6 @@ public partial class SettingsWindow
         InitializeComponent();
     }
 
-    private void OnNaviLoaded(object sender, RoutedEventArgs e)
-        => RootNavigation.SelectedItem = RootNavigation.MenuItems[0];
-
     private void OnNaviSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (_isCodeNavi)
