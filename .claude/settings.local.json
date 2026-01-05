@@ -6,7 +6,9 @@
       "Bash(cat:*)",
       "Bash(dotnet build:*)",
       "Bash(dotnet clean:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(tree:*)",
+      "Bash(findstr:*)"
     ]
   }
 }
